@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/Dadard29/podman-monitoring/client/scraper"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -16,7 +15,7 @@ func storePodInfos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var jsonBody []scraper.PodInfos
+	var jsonBody []PodInfosJson
 	err = json.Unmarshal(data, &jsonBody)
 	if err != nil {
 		log.Println(err)
@@ -42,7 +41,7 @@ func storePodmanInfos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var jsonBody scraper.PodmanInfos
+	var jsonBody PodmanInfosJson
 	err = json.Unmarshal(data, &jsonBody)
 	if err != nil {
 		log.Println(err)

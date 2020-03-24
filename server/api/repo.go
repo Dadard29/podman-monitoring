@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/Dadard29/podman-monitoring/client/scraper"
 	"log"
 	"time"
 )
@@ -10,7 +9,7 @@ func insert(value interface{}) {
 	apiObject.orm.Create(value)
 }
 
-func storePodInfosRepo(podInfos []scraper.PodInfos) error {
+func storePodInfosRepo(podInfos []PodInfosJson) error {
 	log.Println("storing pods infos...")
 	for _, p := range podInfos {
 		podInfosDb := PodsInfos{
@@ -39,7 +38,7 @@ func storePodInfosRepo(podInfos []scraper.PodInfos) error {
 	return nil
 }
 
-func storePodmanInfosRepo(pi scraper.PodmanInfos) error {
+func storePodmanInfosRepo(pi PodmanInfosJson) error {
 	log.Println("storing podman infos...")
 	podmanInfosDb := PodmanInfos{
 		TimeSerie:         time.Now(),
