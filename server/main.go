@@ -14,7 +14,7 @@ func main() {
 		api.DbConfig{
 			Username:     os.Getenv("USERNAME_DB"),
 			Password:     os.Getenv("PASSWORD_DB"),
-			Host:         "localhost",
+			Host:         "127.0.0.1",
 			Port:         "3306",
 			DatabaseName: "monitoring",
 		})
