@@ -1,0 +1,15 @@
+image: docker:stable
+stages:
+  - build
+
+services:
+  - docker:dind
+
+build:
+  stage: build
+  script:
+    - docker info
+    - echo "registering with $REGISTRY_USERNAME $REGISTRY_PASSWORD"
+    - echo $REGISTRY_PASSWORD | docker login -u $REGISTRY_USERNAME --password-stdin registry.gitlab.com
+    - docker build -t $IMAGE_NAME --build-arg ARG_USERNAME_DB=$ARG_USERNAME_DB --build-arg ARG_PASSWORD_DB=ARG_PASSWORD_DB .
+    - docker push $IMAGE_NAME
