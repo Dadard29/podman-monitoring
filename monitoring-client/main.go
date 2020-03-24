@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Dadard29/podman-monitoring/client/scraper"
+	"github.com/Dadard29/podman-monitoring/monitoring-client/scraper"
 	"log"
 	"os"
 	"os/signal"

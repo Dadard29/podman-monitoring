@@ -50,7 +50,7 @@ func newServer(serverConfig ServerConfig) *http.Server {
 		TLSNextProto:      nil,
 		ConnState:         nil,
 		ErrorLog:          log.New(
-			os.Stdout, "podman-monitoring-server", log.Ldate|log.Ltime),
+			os.Stdout, "podman-monitoring-api", log.Ldate|log.Ltime),
 		BaseContext:       nil,
 		ConnContext:       nil,
 	}

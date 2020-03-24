@@ -10,7 +10,7 @@ ENV PASSWORD_DB=$ARG_PASSWORD_DB
 RUN apk add --update git gcc libc-dev
 
 WORKDIR /go/src/app
-COPY server .
+COPY monitoring-api .
 
 RUN go get -d -v ./...
 RUN go install -v ./...

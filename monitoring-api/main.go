@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Dadard29/podman-monitoring/server/api"
+	"github.com/Dadard29/podman-monitoring/monitoring-api/api"
 	"os"
 )
 
