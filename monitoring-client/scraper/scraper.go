@@ -29,7 +29,7 @@ func NewScraper(apiHost string) Scraper {
 }
 
 func (s Scraper) MainTask(t time.Time) {
-	log.Println("sending infos...")
+	log.Println("sending podman infos...")
 	s.GetAndSendPodmanInfos()
 	s.GetAndSendPodInfos()
 }

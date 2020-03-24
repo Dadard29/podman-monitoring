@@ -1,7 +1,6 @@
 package scraper
 
 import (
-	"errors"
 	"fmt"
 	"github.com/containers/libpod/libpod"
 	"log"
@@ -65,8 +64,9 @@ func (s Scraper) getInfraContainerIp(pod *libpod.Pod) (string, error) {
 		return "", err
 	}
 
-	if len(ips) < 0 {
-		return "", errors.New("no ip found for this pod - running in rootless ?")
+	if len(ips) == 0 {
+		// pod may be down
+		return "", nil
 	}
 
 	return ips[0].IP.String(), nil
