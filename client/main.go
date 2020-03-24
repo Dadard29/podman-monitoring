@@ -1,43 +1,25 @@
 package main
 
 import (
-	"github.com/Dadard29/podman-monitoring/api"
-	"github.com/Dadard29/podman-monitoring/scraper"
+	"github.com/Dadard29/podman-monitoring/client/scraper"
 	"log"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 )
 
-func serve() {
-	a := api.NewApi(
-		api.ServerConfig{
-			Host: "0.0.0.0",
-			Port: "9000",
-		},
-		api.DbConfig{
-			Username:     os.Getenv("USERNAME_DB"),
-			Password:     os.Getenv("PASSWORD_DB"),
-			Host:         "localhost",
-			Port:         "3306",
-			DatabaseName: "monitoring",
-		})
-
-	a.Serve()
-	a.Stop()
-}
-
-func task(t time.Time) {
-	log.Println(t)
-}
-
-func scrape() {
+func main() {
 	apiIp := os.Getenv("API_HOST")
 	s := scraper.NewScraper(apiIp)
 
 	// use ticker to repeat the task every n seconds
-	n := 5
+	n, err := strconv.Atoi(os.Getenv("SCRAPE_PERIOD"))
+	if err != nil {
+		log.Fatalln("error parsing env SCRAPE_PERIOD", err)
+		return
+	}
 	log.Println("setting up ticker with period", n)
 	tick := time.NewTicker(time.Second * time.Duration(n))
 	done := make(chan bool)
@@ -57,13 +39,4 @@ func scrape() {
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
 	done <- true
-}
-
-func main() {
-	cmd := os.Args[1]
-	if cmd == "scraper" {
-		scrape()
-	} else if cmd == "api" {
-		serve()
-	}
 }

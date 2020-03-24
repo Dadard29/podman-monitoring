@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/Dadard29/podman-monitoring/scraper"
+	"github.com/Dadard29/podman-monitoring/client/scraper"
 	"io/ioutil"
 	"log"
 	"net/http"

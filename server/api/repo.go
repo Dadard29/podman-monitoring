@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/Dadard29/podman-monitoring/scraper"
+	"github.com/Dadard29/podman-monitoring/client/scraper"
 	"log"
 	"time"
 )
