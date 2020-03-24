@@ -5,15 +5,16 @@ import (
 	"github.com/containers/libpod/libpod"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Scraper struct {
 	libpodRuntime *libpod.Runtime
 	client        *http.Client
-	apiIP         string
+	apiHost         string
 }
 
-func NewScraper(apiIP string) Scraper {
+func NewScraper(apiHost string) Scraper {
 	c := context.Background()
 	runtime, err := libpod.NewRuntime(c)
 	if err != nil {
@@ -23,8 +24,14 @@ func NewScraper(apiIP string) Scraper {
 	return Scraper{
 		libpodRuntime: runtime,
 		client:        &http.Client{},
-		apiIP:         apiIP,
+		apiHost:         apiHost,
 	}
+}
+
+func (s Scraper) MainTask(t time.Time) {
+	log.Println("sending infos...")
+	s.GetAndSendPodmanInfos()
+	s.GetAndSendPodInfos()
 }
 
 func (s Scraper) GetAndSendPodInfos() {
@@ -47,7 +54,7 @@ func (s Scraper) GetAndSendPodmanInfos() {
 		return
 	}
 
-	err = s.sendPodmanVersion(infos)
+	err = s.sendPodmanInfos(infos)
 	if err != nil {
 		log.Println(err)
 	}
