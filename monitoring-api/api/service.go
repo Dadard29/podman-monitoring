@@ -24,6 +24,4 @@ func (a Api) Stop() {
 	var wait time.Duration
 	ctx, _ := context.WithTimeout(context.Background(), wait)
 	a.server.Shutdown(ctx)
-
-	a.orm.Close()
 }
