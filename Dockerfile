@@ -1,4 +1,4 @@
-FROM golang:1.14-alpine
+FROM golang:1.13-alpine
 
 # the image should only be used for the API side
 ARG ARG_USERNAME_DB
