@@ -4,8 +4,8 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
 	"net/http"
 	"os"
@@ -63,7 +63,7 @@ func newOrm(config DbConfig) *gorm.DB {
 		config.Host, config.Port,
 		config.DatabaseName, parseTime)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalln(err)
 	}
